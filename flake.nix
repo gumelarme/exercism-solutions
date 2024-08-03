@@ -21,6 +21,8 @@
           gleam
 
           nim
+          zig
+          zls
           exercism
         ];
       };
