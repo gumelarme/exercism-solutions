@@ -12,19 +12,31 @@
   }:
     flake-utils.lib.eachDefaultSystem (sys: let
       pkgs = nixpkgs.legacyPackages.${sys};
+      requirements = packages: pkgs.mkShell {
+          buildInputs = [ pkgs.exercism ] ++ packages;
+      };
     in {
-      devShell = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          # Gleam stack
+      devShells = {
+        gleam = requirements (with pkgs; [
           erlang
           rebar3
           gleam
+        ]);
 
+        clojure = requirements (with pkgs; [
+          jdk8_headless
+          clojure
+          leiningen
+        ]);
+
+        nim = requirements (with pkgs; [
           nim
-          zig
+        ]);
+
+        zig = requirements (with pkgs; [
+          zig 
           zls
-          exercism
-        ];
+        ]);
       };
     });
 }
