@@ -37,6 +37,10 @@
           zig 
           zls
         ]);
+
+        prolog = requirements (with pkgs; [
+          swi-prolog
+        ]);
       };
     });
 }
